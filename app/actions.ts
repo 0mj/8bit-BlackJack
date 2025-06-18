@@ -54,18 +54,15 @@ export async function saveGameResult(username: string, playerScore: number, deal
 }
 
 export async function getLeaderboard(): Promise<Player[]> {
-  const { data, error } = await serverSupabase
-    .from("players")
-    .select("*")
-    .order("high_score", { ascending: false })
-    .limit(10)
+  const { data, error } = await serverSupabase.from("players").select("*").order("high_score", { ascending: false })
+  // Removed .limit(10) to show all records
 
   if (error) {
     console.error("Error fetching leaderboard:", error)
     return []
   }
 
-  return data
+  return data || []
 }
 
 export async function getPlayerHistory(username: string): Promise<GameHistory[]> {
@@ -93,5 +90,5 @@ export async function getPlayerHistory(username: string): Promise<GameHistory[]>
     return []
   }
 
-  return data
+  return data || []
 }
