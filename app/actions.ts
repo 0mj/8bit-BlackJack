@@ -54,8 +54,8 @@ export async function saveGameResult(username: string, playerScore: number, deal
 }
 
 export async function getLeaderboard(): Promise<Player[]> {
-  const { data, error } = await serverSupabase.from("players").select("*").order("high_score", { ascending: false })
   // Removed .limit(10) to show all records
+  const { data, error } = await serverSupabase.from("players").select("*").order("high_score", { ascending: false })
 
   if (error) {
     console.error("Error fetching leaderboard:", error)
